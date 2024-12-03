@@ -18,22 +18,27 @@ public class Day03 {
 
     public void run() {
         String data = getData();
-        String regex = "mul\\(\\d{1,3},\\d{1,3}\\)";
+        String regex = "(mul\\(\\d{1,3},\\d{1,3}\\))|(do\\(\\))|(don't\\(\\))";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(data);
 
+        boolean execute = true;
+
         while(matcher.find()) {
-            int arg1 = 0, arg2 = 0;
-            String subRegex = "\\d{1,3}";
-            Pattern subPattern = Pattern.compile(subRegex);
-            Matcher subMatcher = subPattern.matcher(matcher.group());
-            
-            if (subMatcher.find()) { arg1 = Integer.parseInt(subMatcher.group()); }
-            if (subMatcher.find()) { arg2 = Integer.parseInt(subMatcher.group()); }
+            if (matcher.group().equals("do()")) { execute = true; }
+            else if (matcher.group().equals("don't()")) { execute = false; }
+            else if (execute) {
+                int arg1 = 0, arg2 = 0;
+                String subRegex = "\\d{1,3}";
+                Pattern subPattern = Pattern.compile(subRegex);
+                Matcher subMatcher = subPattern.matcher(matcher.group());
+                
+                if (subMatcher.find()) { arg1 = Integer.parseInt(subMatcher.group()); }
+                if (subMatcher.find()) { arg2 = Integer.parseInt(subMatcher.group()); }
 
-            executeMult(arg1, arg2);
+                executeMult(arg1, arg2);
+            }
         }
-
         System.out.println(total);
     }
 
