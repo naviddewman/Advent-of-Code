@@ -20,7 +20,8 @@ public class Day04 {
 
     public void run() {
         populateMatrix();
-        search();
+        //search('X'); // part 1
+        search('A');
 
         System.out.println(itemsFound);
     }
@@ -39,18 +40,40 @@ public class Day04 {
         catch (Exception e) { System.out.println("something went oopsie..." + e); }
     }
 
-    public void search() {
+    public void search(char letter) {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                if (matrix[row][col] == 'X') {
-                    List<int[]> points = searchAdj(row, col);
-                    if (points.size() > 0) { findMatches(points, row, col); }
+                if (matrix[row][col] == letter) {
+                    if (letter == 'X') {    // part 1
+                        List<int[]> points = searchAdj(row, col);
+                        if (points.size() > 0) { findXmas(points, row, col); }
+                    }
+                    else { findMas(row, col); } // part 2
                 }
             }
         }
     }
 
-    public void findMatches(List<int[]> points, int row, int col) {
+    public void findMas(int row, int col) {
+        int masFound = 0;
+        int[] rowOffset = {-1, -1};
+        int[] colOffset = {-1, 1};
+
+        for (int i = 0; i < 2; i++) {
+            String word = "";
+            int newRow = row + rowOffset[i];
+            int newCol = col + colOffset[i];
+
+            if (isValid(newRow, newCol)) {
+                if (i == 0 && isValid(row+1, col+1)) { word = String.valueOf(matrix[newRow][newCol]) + matrix[row][col] + matrix[row+1][col+1]; }
+                else if (i == 1 && isValid(row+1, col-1)) { word = String.valueOf(matrix[newRow][newCol]) + matrix[row][col] + matrix[row+1][col-1]; }
+                if (word.equals("MAS") || word.equals("SAM")) { masFound++; }
+            }
+        }
+        if (masFound == 2) { itemsFound++; }
+    }
+
+    public void findXmas(List<int[]> points, int row, int col) {
         for (int[] point : points) {
             String word = "XM";
             int xVec = point[0] - row;
@@ -59,7 +82,7 @@ public class Day04 {
             for (int i = 1; i < 3; i++) {
                 int newRow = point[0] + xVec * i;
                 int newCol = point[1] + yVec * i;
-                if (newRow >= 0 && newRow < SIZE && newCol >= 0 && newCol < SIZE) { 
+                if (isValid(newRow, newCol)) { 
                     word += matrix[newRow][newCol]; 
                     if (word.equals("XMAS")) { itemsFound++; }
                 }
@@ -82,4 +105,6 @@ public class Day04 {
         }
         return points;
     }
+
+    public boolean isValid(int x, int y) { return x >= 0 && x < SIZE && y >= 0 && y < SIZE; }
 }
