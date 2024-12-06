@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,9 @@ public class Day05 {
 
     public void run() {
         getData();
-        checkCmds();
+        //checkCmds();  // part 1
+        checkCmdsPt2(); // part 2
+
         System.out.println(total);
     }   
 
@@ -72,6 +75,38 @@ public class Day05 {
                 }
             }
             if (inOrder) { total += list.get(list.size()/2); }
+        }
+    }
+
+    public void checkCmdsPt2() {
+        for (List<Integer> list : cmds) {
+            Boolean inOrder = true;
+            for (int i = 0; i < list.size(); i++) {
+                int cmd = list.get(i);
+                List<Integer> nextVals = map.get(cmd);
+                if (nextVals != null) {
+                    for (int val : nextVals) {
+                        if (list.indexOf(val) != -1 && list.indexOf(val) < i) { inOrder = false; }
+                    }
+                }
+            }
+            if (!inOrder) {
+                for (int i = 0; i < list.size(); i++) {
+                    int cmd = list.get(i);
+                    List<Integer> dependencies = map.get(cmd);
+                    if (dependencies != null) {
+                        for (int dep : dependencies) {
+                            int depIndex = list.indexOf(dep);
+                            if (depIndex != -1 && depIndex < i) {
+                                Collections.swap(list, i, depIndex);
+                                i = -1; 
+                                break;
+                            }
+                        }
+                    }
+                }
+                total += list.get(list.size()/2);
+            }
         }
     }
 }
