@@ -33,7 +33,7 @@ public class Day01 {
 
     public void populate() {
         try (
-            BufferedReader br = new BufferedReader(new FileReader("./dat/aoc01.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("../dat/aoc01.txt"));
         ) {
             String line;
             while ((line = br.readLine()) != null) {

@@ -28,7 +28,7 @@ public class Day04 {
 
     public void populateMatrix() {
         try (
-            BufferedReader br = new BufferedReader(new FileReader("./dat/aoc04.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("../dat/aoc04.txt"));
         ) {
             String line;
             int row = 0;

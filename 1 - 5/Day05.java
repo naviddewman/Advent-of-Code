@@ -33,7 +33,7 @@ public class Day05 {
     }   
 
     public void getData() {
-        try ( BufferedReader br = new BufferedReader(new FileReader("./dat/aoc05.txt")); ) {
+        try ( BufferedReader br = new BufferedReader(new FileReader("../dat/aoc05.txt")); ) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.contains(",")) {    // reading cmds

@@ -24,7 +24,7 @@ public class Day02 {
 
     public void findSafeReports() {
         try (
-            BufferedReader br = new BufferedReader(new FileReader("./dat/aoc02.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("../dat/aoc02.txt"));
         ) {
             String report;
             while ((report = br.readLine()) != null) {

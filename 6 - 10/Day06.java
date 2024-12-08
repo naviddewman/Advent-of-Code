@@ -24,14 +24,17 @@ public class Day06 {
 
     public void run() {
         populateMap();
-        runSimulation();
-        calculatePositions();
+        // part 1
+        // runSimulation();
+        // calculatePositions();
+        // part 2
+        obstaclePlacer();
         System.out.println(distinctPositions);
     }
 
     public void populateMap() {
         try (
-            BufferedReader br = new BufferedReader(new FileReader("./dat/aoc06.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("../dat/aoc06.txt"));
         ) {
             String line;
             int row = 0;
@@ -41,6 +44,10 @@ public class Day06 {
             }
         }
         catch (Exception e) { System.out.println("something went oopsie..." + e); }
+    }
+
+    public void obstaclePlacer() {
+        
     }
 
     public void runSimulation() {

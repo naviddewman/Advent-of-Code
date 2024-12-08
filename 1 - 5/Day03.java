@@ -46,7 +46,7 @@ public class Day03 {
 
     public String getData() {
         String content = null;
-        try { content = Files.readString(Path.of("./dat/aoc03.txt")); }
+        try { content = Files.readString(Path.of("../dat/aoc03.txt")); }
         catch (Exception e) { System.out.println("oopsie"); }
         return content;
     }
