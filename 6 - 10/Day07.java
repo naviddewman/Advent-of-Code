@@ -66,7 +66,12 @@ public class Day07 {
         if (index == nums.length) {
             return currentResult == target;
         }
-        return computeVals(target, nums, index + 1, currentResult + nums[index]) || 
-            computeVals(target, nums, index + 1, currentResult * nums[index]);
+        
+        boolean add = computeVals(target, nums, index + 1, currentResult + nums[index]);
+        boolean multiply = computeVals(target, nums, index + 1, currentResult * nums[index]);
+        long concatenated = Long.parseLong(String.valueOf(currentResult) + nums[index]);
+        boolean concat = computeVals(target, nums, index + 1, concatenated);
+
+        return add || multiply || concat;
     }
 }
